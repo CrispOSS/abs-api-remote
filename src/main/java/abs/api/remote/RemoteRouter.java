@@ -2,7 +2,6 @@ package abs.api.remote;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
@@ -14,7 +13,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -77,17 +75,15 @@ public class RemoteRouter implements Router {
 				Entity<InputStream> message = Entity.entity(
 						new ByteArrayInputStream(baos.toByteArray()),
 						MediaType.APPLICATION_OCTET_STREAM);
-				WebTarget path = target.path("actors");
-				logger.debug("Routing to {}", path.getUri());
-				Form form = new Form();
-				form.param("from", envelope.from().name().toASCIIString());
-				form.param("to", envelope.to().name().toASCIIString());
-				form.param("message", envelope.message().toString());
-				Response response = path
-						.request()
-						.accept(MediaType.TEXT_PLAIN)
-						.post(Entity.<Form> entity(form, MediaType.APPLICATION_FORM_URLENCODED),
-								Response.class);
+
+				String from = Reference.encode(envelope.from());
+				String to = Reference.encode(envelope.to());
+
+				WebTarget path = target.path("actors").path(to).path(from);
+				logger.warn("Routing to {}", path.getUri());
+
+				Response response = path.request().accept(MediaType.TEXT_PLAIN)
+						.put(message, Response.class);
 				Status status = Status.fromStatusCode(response.getStatus());
 				logger.debug("Route resolt: {}", status);
 				switch (status) {
@@ -103,8 +99,9 @@ public class RemoteRouter implements Router {
 					throw new IllegalStateException("Unknown error: " + status + " : "
 							+ response.readEntity(String.class));
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO
+				logger.error(e.toString());
 			}
 		}
 
