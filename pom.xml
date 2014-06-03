@@ -106,8 +106,8 @@
 
 	<scm>
 		<url>https://github.com/CrispOSS/abs-api-remote.git</url>
-		<connection>https://github.com/CrispOSS/abs-api-remote.git</connection>
-		<developerConnection>git@github.com:CrispOSS/abs-api-remote.git</developerConnection>
+		<connection>scm:git:https://github.com/CrispOSS/abs-api-remote.git</connection>
+		<developerConnection>scm:git:git@github.com:CrispOSS/abs-api-remote.git</developerConnection>
 	</scm>
 
 </project>
