@@ -80,12 +80,12 @@ public class RemoteRouter implements Router {
 				String to = Reference.encode(envelope.to());
 
 				WebTarget path = target.path("actors").path(to).path(from);
-				logger.warn("Routing to {}", path.getUri());
+				logger.info("Routing to {}", path.getUri().toASCIIString());
 
 				Response response = path.request().accept(MediaType.TEXT_PLAIN)
 						.put(message, Response.class);
 				Status status = Status.fromStatusCode(response.getStatus());
-				logger.debug("Route resolt: {}", status);
+				logger.debug("Route result: {}", status);
 				switch (status) {
 				case OK:
 					return;
