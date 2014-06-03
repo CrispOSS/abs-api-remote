@@ -67,6 +67,11 @@
 			<artifactId>logback-classic</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.github.crisposs</groupId>
 			<artifactId>abs-api</artifactId>
 			<version>${project.version}</version>

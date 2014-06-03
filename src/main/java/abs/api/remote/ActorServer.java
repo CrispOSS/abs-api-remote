@@ -21,6 +21,10 @@ import abs.api.Lifecycle;
  */
 public class ActorServer implements Lifecycle {
 
+	static {
+		LoggingConfiguration.configure();
+	}
+
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final String host;

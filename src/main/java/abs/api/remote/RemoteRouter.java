@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Future;
@@ -80,7 +81,7 @@ public class RemoteRouter implements Router {
 				String to = Reference.encode(envelope.to());
 
 				WebTarget path = target.path("actors").path(to).path(from);
-				logger.info("Routing to {}", path.getUri().toASCIIString());
+				logger.info("Routing to {}", URLDecoder.decode(path.getUri().toString(), "UTF-8"));
 
 				Response response = path.request().accept(MediaType.TEXT_PLAIN)
 						.put(message, Response.class);
