@@ -6,14 +6,14 @@
 	<groupId>com.github.crisposs</groupId>
 	<name>ABS Remote API</name>
 	<artifactId>abs-api-remote</artifactId>
-	<version>0.5</version>
+	<version>0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<url>https://github.com/CrispOSS/abs-api-remote</url>
 
 	<parent>
 		<groupId>com.github.crisposs</groupId>
 		<artifactId>abs-api-parent</artifactId>
-		<version>0.5</version>
+		<version>0.5-SNAPSHOT</version>
 	</parent>
 
 	<licenses>
